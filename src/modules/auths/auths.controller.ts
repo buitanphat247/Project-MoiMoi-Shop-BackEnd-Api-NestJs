@@ -12,7 +12,12 @@ import { AuthsService } from './auths.service';
 import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
-import { Public, ResponseMessage, SkipPermission, User } from 'src/decorator/customize';
+import {
+  Public,
+  ResponseMessage,
+  SkipPermission,
+  User,
+} from 'src/decorator/customize';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UserInterface } from '../users/users.interface';
 import { UsersService } from '../users/users.service';
@@ -38,6 +43,13 @@ export class AuthsController {
   @ResponseMessage('Register a new user')
   create(@Body() userDto: CreateUserDto) {
     return this.usersService.register(userDto);
+  }
+
+  @Post('createMany')
+  @Public()
+  @ResponseMessage('Create many users')
+  createMany(@Body() userList: any) {
+    return this.usersService.createManyUser(userList);
   }
 
   @SkipPermission()

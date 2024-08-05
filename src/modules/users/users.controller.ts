@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -21,8 +22,12 @@ export class UsersController {
   @Public()
   @Get()
   @ResponseMessage('Find all users')
-  findAll() {
-    return this.usersService.findAll();
+  findAll(
+    @Query() qs: string,
+    @Query('limit') limit: number,
+    @Query('current') currentPage: number,
+  ) {
+    return this.usersService.findAll(qs, +currentPage, +limit);
   }
 
   @Public()

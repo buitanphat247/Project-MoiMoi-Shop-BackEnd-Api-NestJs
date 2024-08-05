@@ -11,6 +11,7 @@ import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { UserInterface } from './users.interface';
+import aqp from 'api-query-params';
 
 @Injectable()
 export class UsersService {
@@ -27,11 +28,28 @@ export class UsersService {
     return compareSync(password, password_hashed);
   }
 
-  async findAll() {
-    return await this.UserModel.find({}).populate({
-      path: 'role',
-      select: { name: 1, _id: 1 },
-    });
+  async findAll(qs: string, currentPage: number, limit: number) {
+    const { filter, sort, projection, population } = aqp(qs);
+    delete filter['current'];
+
+    const totalItems = await this.UserModel.countDocuments(filter);
+    const totalPages = Math.ceil(totalItems / limit);
+    const offset = (currentPage - 1) * limit;
+
+    return {
+      meta: {
+        current: currentPage, //trang hiện tại
+        pageSize: limit, //số lượng bản ghi đã lấy
+        pages: totalPages, //tổng số trang với điều kiện query
+        total: totalItems, // tổng số phần tử (số bản ghi)
+      },
+      result: await this.UserModel.find(filter)
+        .skip(offset)
+        .limit(limit)
+        .sort(sort as any)
+        .populate(population)
+        .exec(),
+    };
   }
 
   async findOne(_id: string) {
@@ -63,9 +81,15 @@ export class UsersService {
       address,
       gender,
       role: '66982c969affcd035649a8d7',
-      // role: 'USER',
       username,
     });
+  }
+
+  async createManyUser(userList: any) {
+    for (let item of userList) {
+      await this.register(item);
+    }
+    return true;
   }
 
   async update(userDto: UpdateUserDto, _id: string, user: UserInterface) {
