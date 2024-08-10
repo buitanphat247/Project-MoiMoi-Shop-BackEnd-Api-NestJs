@@ -37,20 +37,17 @@ export class OrdersController {
     return this.ordersService.createMany(user, orderList);
   }
 
-
-  
-  @Public()
   @ResponseMessage('Get all orders')
   @Get()
   findAll(
     @Query() qs: string,
     @Query('limit') limit: number,
     @Query('current') currentPage: number,
+    @User() user: UserInterface,
   ) {
     return this.ordersService.findAll(qs, +currentPage, +limit);
   }
 
-  @Public()
   @ResponseMessage('Get a order by id')
   @Get(':id')
   findOne(@Param('id') _id: string) {

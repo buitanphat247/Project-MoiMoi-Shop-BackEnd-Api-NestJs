@@ -13,9 +13,9 @@ export class Product {
   @Prop()
   description: string;
   @Prop()
-  quanlity: number;
+  quantity: number;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
-  categories: mongoose.Schema.Types.ObjectId;
+  category: mongoose.Schema.Types.ObjectId;
   @Prop()
   images: string[];
   @Prop()

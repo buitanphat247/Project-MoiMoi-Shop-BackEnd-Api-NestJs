@@ -48,7 +48,7 @@ export class AuthsService {
     } = user;
     const payload = { _id, email, role, username, address, age, phone, gender };
     const refresh_token = await this.createRefresthToken(payload);
-    const access_token = await this.createRefresthToken(payload);
+    const access_token = await this.createAccessToken(payload);
     await this.usersService.update_refreshToken(
       refresh_token,
       _id.toString(),
@@ -73,13 +73,13 @@ export class AuthsService {
 
   async createRefresthToken(payload: any) {
     const refresthToken = this.jwtService.sign(payload, {
-      expiresIn: this.config.get<string>('JWT_REFRESH_TOKEN_EXPIRES_IN'),
+      expiresIn: '100000d',
     });
     return refresthToken;
   }
   async createAccessToken(payload: any) {
     const accessToken = this.jwtService.sign(payload, {
-      expiresIn: this.config.get<string>('JWT_ACCESS_TOKEN_EXPIRES_IN'),
+      expiresIn: '100000d',
     });
     return accessToken;
   }
@@ -122,10 +122,6 @@ export class AuthsService {
             role,
           },
         };
-      } else {
-        throw new BadRequestException(
-          `Refresh token không hợp lệ. Vui lòng login lại!`,
-        );
       }
     } catch (e) {
       throw new BadRequestException(

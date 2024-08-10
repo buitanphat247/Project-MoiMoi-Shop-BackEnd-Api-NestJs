@@ -38,7 +38,7 @@ export class ProductsService {
   }
   async findOne(_id: string) {
     return await this.ProductModel.findOne({ _id }).populate({
-      path: 'categories',
+      path: 'category',
       select: {
         name: 1,
       },
@@ -46,16 +46,16 @@ export class ProductsService {
   }
 
   async create(user: UserInterface, productDto: CreateProductDto) {
-    const { categories, description, discount, images, name, price, quanlity } =
+    const { category, description, discount, images, name, price, quantity } =
       productDto;
     return await this.ProductModel.create({
-      categories,
+      category,
       description,
       discount,
       images,
       name,
       price,
-      quanlity,
+      quantity,
       createdBy: {
         _id: user._id,
         username: user.username,
@@ -102,18 +102,18 @@ export class ProductsService {
     return await this.ProductModel.find().where('images.name').equals(name);
   }
   async update(user: UserInterface, productDto: UpdateProductDto, _id) {
-    const { categories, description, discount, images, name, price, quanlity } =
+    const { category, description, discount, images, name, price, quantity } =
       productDto;
     return await this.ProductModel.findOneAndUpdate(
       { _id },
       {
-        categories,
+        category,
         description,
         discount,
         images,
         name,
         price,
-        quanlity,
+        quantity,
       },
     );
   }

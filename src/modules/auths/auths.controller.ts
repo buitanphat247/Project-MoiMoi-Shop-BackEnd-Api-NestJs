@@ -52,6 +52,7 @@ export class AuthsController {
     return this.usersService.createManyUser(userList);
   }
 
+  @Public()
   @SkipPermission()
   @Get('refresh')
   @ResponseMessage('Get new access token')

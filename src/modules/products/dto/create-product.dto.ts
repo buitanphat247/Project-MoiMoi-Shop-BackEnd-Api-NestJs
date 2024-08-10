@@ -19,15 +19,14 @@ export class CreateProductDto {
   description: string;
 
   @IsNotEmpty({ message: 'Số lượng không được bỏ trống!' })
-  quanlity: string;
+  quantity: string;
 
   @IsNotEmpty({ message: 'Danh mục không được bỏ trống!' })
-  categories: mongoose.Schema.Types.ObjectId;
+  category: mongoose.Schema.Types.ObjectId;
 
   @IsNotEmpty({ message: 'Hình ảnh không được bỏ trống!' })
   images: string[];
 
-  @IsOptional()
-  @IsString({ message: 'Giảm giá phải là chuỗi ký tự!' })
+  @IsNotEmpty({ message: 'Giảm giá không được bỏ trống!' })
   discount: string;
 }

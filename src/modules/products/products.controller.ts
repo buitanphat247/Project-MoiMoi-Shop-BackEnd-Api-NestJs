@@ -26,7 +26,7 @@ export class ProductsController {
 
   @Public()
   @Get()
-  @ResponseMessage('Find all users')
+  @ResponseMessage('Find all products')
   findAll(
     @Query() qs: string,
     @Query('current') currentPage: number,

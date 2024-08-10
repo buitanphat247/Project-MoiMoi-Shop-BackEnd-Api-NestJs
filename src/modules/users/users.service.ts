@@ -160,11 +160,7 @@ export class UsersService {
     return user;
   }
 
-  async update_refreshToken(
-    refreshToken: string,
-    _id: string,
-    username: string,
-  ) {
+  async update_refreshToken(refreshToken: any, _id: string, username: string) {
     const filter = { _id };
     return await this.UserModel.findOneAndUpdate(filter, {
       refreshToken,
