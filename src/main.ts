@@ -7,9 +7,9 @@ import { join } from 'path';
 import { TransformationInterceptor } from './core/interceptor';
 import { ValidationPipe } from '@nestjs/common';
 import { JwtAuthGuard } from './modules/auths/guard/jwt-auth.guard';
-import * as cookieParser from 'cookie-parser';
-import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -42,8 +42,8 @@ async function bootstrap() {
       credentials: true, // Bật hỗ trợ cho các request có chứa cookies hoặc credentials
     }),
   );
-  app.use(bodyParser.json({limit: '50mb'}));
-  app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+  app.use(bodyParser.json({ limit: '50mb' }));
+  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   await app.listen(port);
 }
 bootstrap();
