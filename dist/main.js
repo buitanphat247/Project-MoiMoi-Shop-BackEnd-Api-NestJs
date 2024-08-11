@@ -49,10 +49,10 @@ async function bootstrap() {
     app.useGlobalGuards(new jwt_auth_guard_1.JwtAuthGuard(reflector));
     app.use((0, cookie_parser_1.default)());
     app.use((0, cors_1.default)({
-        origin: [https,
-            methods, ['GET', 'POST', 'PUT', 'DELETE'],
-            allowedHeaders, ['Content-Type', 'Authorization', 'folder_type'],
-            credentials, true,]
+        origin: 'https://www.moimoishop.site',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'folder_type'],
+        credentials: true,
     }));
     app.use(bodyParser.json({ limit: '50mb' }));
     app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
