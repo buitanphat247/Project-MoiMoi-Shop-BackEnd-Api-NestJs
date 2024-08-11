@@ -36,7 +36,7 @@ async function bootstrap() {
   // config cors
   app.use(
     cors({
-      origin: '*', // Cho phép tất cả các tên miền
+      origin: true, // Cho phép tất cả các tên miền
       // origin: 'https://www.moimoishop.site', // Cho phép các yêu cầu từ origin này
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // Cho phép các phương thức HTTP
       allowedHeaders: ['Content-Type', 'Authorization', 'folder_type'], // Cho phép các headers được gửi đi

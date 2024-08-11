@@ -49,7 +49,7 @@ async function bootstrap() {
     app.useGlobalGuards(new jwt_auth_guard_1.JwtAuthGuard(reflector));
     app.use((0, cookie_parser_1.default)());
     app.use((0, cors_1.default)({
-        origin: '*',
+        origin: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization', 'folder_type'],
         credentials: true,
