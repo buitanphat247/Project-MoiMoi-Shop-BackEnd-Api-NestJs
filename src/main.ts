@@ -36,7 +36,7 @@ async function bootstrap() {
   // config cors
   app.use(
     cors({
-      origin: ['http://localhost:3000'], // Cho phép các yêu cầu từ origin này
+      origin: true, // Cho phép các yêu cầu từ origin này
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // Cho phép các phương thức HTTP
       allowedHeaders: ['Content-Type', 'Authorization', 'folder_type'], // Cho phép các headers được gửi đi
       credentials: true, // Bật hỗ trợ cho các request có chứa cookies hoặc credentials
